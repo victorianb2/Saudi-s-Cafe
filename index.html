@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saudi's Cafe</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh; /* تأكد من أن الصفحة تأخذ الارتفاع الكامل */
+            overflow: auto; /* يسمح بالتمرير التلقائي إذا كان المحتوى أكبر من حجم الشاشة */
+        }
+
+        .container {
+            text-align: center;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 100%; /* يجعل الحاوية تأخذ عرض الشاشة بالكامل */
+            height: auto; /* السماح للارتفاع بالتكيف مع المحتوى */
+            padding: 20px;
+        }
+
+        .header {
+            background-color: #FF9F00; /* لون مميز للقسم العلوي */
+            padding: 25px 0; /* زيادة الحشو للتأكد من عرض النص بشكل جيد */
+            color: white;
+            font-size: 28px; /* زيادة حجم النص قليلاً */
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .image-container {
+            padding: 20px;
+            width: 100%;
+            height: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .buttons-container {
+            margin-top: 20px;
+        }
+
+        .buttons-container button {
+            background-color: #FF9F00;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            margin: 5px;
+            border-radius: 5px;
+        }
+
+        .buttons-container button:hover {
+            background-color: #FF7F00;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">Saudi's Cafe</div>
+        <div class="image-container">
+            <img id="imageDisplay" src="https://i.postimg.cc/DwPjpcH0/Untitled-1.png" alt="Saudi's Cafe Image">
+        </div>
+        <div class="buttons-container">
+            <button onclick="changeImage(-1)">السابق</button>
+            <button onclick="changeImage(1)">التالي</button>
+        </div>
+    </div>
+
+    <script>
+        // روابط الصور (الروابط الجديدة)
+        const images = [
+            "https://i.postimg.cc/DwPjpcH0/Untitled-1.png", // الصورة الأولى
+            "https://i.postimg.cc/7LPBF2rV/Untitled-12.png"  // الصورة الثانية
+        ];
+
+        let currentIndex = 0; // المؤشر الحالي للصورة
+
+        // دالة لتغيير الصورة
+        function changeImage(direction) {
+            currentIndex += direction;
+
+            // تأكد من عدم الخروج عن نطاق الصور
+            if (currentIndex < 0) {
+                currentIndex = images.length - 1;
+            } else if (currentIndex >= images.length) {
+                currentIndex = 0;
+            }
+
+            // تغيير الصورة المعروضة
+            document.getElementById("imageDisplay").src = images[currentIndex];
+        }
+    </script>
+
+</body>
+</html>
