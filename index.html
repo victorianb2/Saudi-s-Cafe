@@ -22,6 +22,7 @@
             width: 100%; /* يجعل الحاوية تأخذ عرض الشاشة بالكامل */
             height: auto; /* السماح للارتفاع بالتكيف مع المحتوى */
             padding: 20px;
+            box-sizing: border-box;
         }
 
         .header {
@@ -31,22 +32,26 @@
             font-size: 28px; /* زيادة حجم النص قليلاً */
             font-weight: bold;
             text-align: center;
+            margin-bottom: 20px; /* إضافة مسافة أسفل العنوان */
         }
 
         .image-container {
-            padding: 20px;
-            width: 100%;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            height: auto;
+            justify-content: center; /* التأكد من أن الصورة في المنتصف أفقياً */
+            align-items: center;     /* التأكد من أن الصورة في المنتصف عمودياً */
+            width: 100%;
+            max-width: 794px; /* عرض الصورة على حجم A4 ولكن دون تجاوز الحدود */
+            height: auto; /* السماح بتعديل الارتفاع تلقائيًا حسب العرض */
+            margin: 0 auto; /* لضمان أن الحاوية في المنتصف */
+            padding: 0;
+            position: relative;
+            box-sizing: border-box;
         }
 
         .image-container img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-            margin: 0 auto; /* إضافة هذه السطر لضمان تموضع الصورة في المنتصف */
+            width: 100%; /* جعل الصورة تتناسب مع عرض الحاوية */
+            height: auto;
+            object-fit: contain; /* الحفاظ على النسب */
         }
 
         .buttons-container {
