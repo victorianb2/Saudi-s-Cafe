@@ -105,6 +105,55 @@
             background-color: #FF7F00;
         }
 
+        .menu-icon {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: #FF9F00;
+            color: black;
+            border: none;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: background-color 0.3s;
+        }
+
+        .menu-icon:hover {
+            background-color: #FF7F00;
+        }
+
+        .menu {
+            position: fixed;
+            bottom: 60px;
+            left: 20px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #FF9F00;
+            border-radius: 5px;
+            padding: 10px 15px;
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+            box-shadow: 0 4px 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 5px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .menu a:hover {
+            background-color: #FF9F00;
+            color: black;
+        }
+
         html {
             scroll-snap-type: y mandatory;
             scroll-behavior: smooth;
@@ -116,12 +165,6 @@
 <header>
     Cafe Saudi
 </header>
-
-<nav>
-    <a href="#coffee-tea">القهوة والشاي</a>
-    <a href="#smoothie-juices">السموزي والعصائر</a>
-    <a href="#milkshakes">الميلك شيك</a>
-</nav>
 
 <div class="progress-bar" id="progressBar"></div>
 
@@ -138,11 +181,20 @@
 </section>
 
 <button class="scroll-to-top" id="scrollToTop">&#8679;</button>
+<button class="menu-icon" id="menuIcon">&#8942;</button>
+
+<div class="menu" id="menu">
+    <a href="#coffee-tea">القهوة والشاي</a>
+    <a href="#smoothie-juices">السموزي والعصائر</a>
+    <a href="#milkshakes">الميلك شيك</a>
+</div>
 
 <script>
     const sections = document.querySelectorAll("section");
     const progressBar = document.getElementById("progressBar");
     const scrollToTop = document.getElementById("scrollToTop");
+    const menuIcon = document.getElementById("menuIcon");
+    const menu = document.getElementById("menu");
 
     window.addEventListener("scroll", () => {
         let scrollPosition = window.scrollY;
@@ -168,6 +220,10 @@
 
     scrollToTop.addEventListener("click", () => {
         window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    menuIcon.addEventListener("click", () => {
+        menu.style.display = menu.style.display === "none" ? "flex" : "none";
     });
 </script>
 
