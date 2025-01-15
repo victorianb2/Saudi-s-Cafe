@@ -26,54 +26,58 @@
             z-index: 1000;
         }
 
-        nav {
-            position: fixed;
-            top: 60px;
-            width: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
+        .carousel {
             display: flex;
-            justify-content: center;
-            gap: 15px;
-            padding: 10px 0;
-            z-index: 1000;
-        }
-
-        nav a {
-            color: #FF9F00;
-            text-decoration: none;
-            padding: 10px 20px;
-            border: 1px solid #FF9F00;
-            border-radius: 5px;
-            font-size: 18px;
-            transition: background-color 0.3s;
-        }
-
-        nav a:hover {
-            background-color: #FF9F00;
-            color: black;
-        }
-
-        section {
+            overflow: hidden;
+            scroll-snap-type: x mandatory;
             height: 100vh;
+        }
+
+        .carousel section {
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
+            width: 100vw;
+            height: 100%;
+            position: absolute;
             opacity: 0;
             transform: scale(0.9);
-            transition: opacity 1s ease-in-out, transform 0.5s ease-in-out;
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
         }
 
-        section.visible {
+        .carousel section.active {
             opacity: 1;
             transform: scale(1);
         }
 
-        section img {
-            max-width: 90%;
+        .carousel img {
+            max-width: 100%;
             max-height: 80%;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .indicators {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .indicators div {
+            width: 12px;
+            height: 12px;
+            background-color: rgba(255, 159, 0, 0.5);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .indicators div.active {
+            background-color: #FF9F00;
         }
 
         .progress-bar {
@@ -84,81 +88,8 @@
             height: 5px;
             background-color: #FF9F00;
             z-index: 1001;
-            transition: width 0.1s;
+            transition: width 0.5s ease;
         }
-
-        .scroll-to-top {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #FF9F00;
-            color: black;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: none;
-        }
-
-        .scroll-to-top:hover {
-            background-color: #FF7F00;
-        }
-
-        html {
-            scroll-snap-type: y none;
-            scroll-behavior: smooth;
-            overflow-y: auto;
-        }
-
-        .scroll-indicator {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 10px;
-        }
-
-        .scroll-indicator div {
-            width: 10px;
-            height: 10px;
-            background-color: rgba(255, 159, 0, 0.8);
-            border-radius: 50%;
-            cursor: pointer;
-        }
-
-        .floating-text {
-            position: fixed;
-            bottom: 50%;
-            left: 50%;
-            transform: translate(-50%, 50%);
-            background-color: #FF9F00;
-            color: black;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-size: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            animation: fadeInOut 3s ease forwards;
-        }
-
-        @keyframes fadeInOut {
-            0% {
-                opacity: 0;
-                transform: translate(-50%, 50%) scale(0.9);
-            }
-            50% {
-                opacity: 1;
-                transform: translate(-50%, 50%) scale(1);
-            }
-            100% {
-                opacity: 0;
-                transform: translate(-50%, 50%) scale(0.9);
-            }
-        }
-
     </style>
 </head>
 <body>
@@ -169,76 +100,88 @@
 
 <div class="progress-bar" id="progressBar"></div>
 
-<section id="coffee-tea">
-    <img src="https://i.postimg.cc/XJXf3DSv/1.png" alt="قائمة القهوة والشاي">
-</section>
-
-<section id="smoothie-juices">
-    <img src="https://i.postimg.cc/76gDw6BL/2.png" alt="قائمة السموزي والعصائر">
-</section>
-
-<section id="milkshakes">
-    <img src="https://i.postimg.cc/BbrvNyw8/3.png" alt="قائمة الميلك شيك">
-</section>
-
-<div class="scroll-indicator">
-    <div onclick="scrollToSection('coffee-tea')"></div>
-    <div onclick="scrollToSection('smoothie-juices')"></div>
-    <div onclick="scrollToSection('milkshakes')"></div>
+<div class="carousel" id="carousel">
+    <section class="active">
+        <img src="https://i.postimg.cc/XJXf3DSv/1.png" alt="قائمة القهوة والشاي">
+    </section>
+    <section>
+        <img src="https://i.postimg.cc/76gDw6BL/2.png" alt="قائمة السموزي والعصائر">
+    </section>
+    <section>
+        <img src="https://i.postimg.cc/BbrvNyw8/3.png" alt="قائمة الميلك شيك">
+    </section>
 </div>
 
-<button class="scroll-to-top" id="scrollToTop">&#8679;</button>
-
-<div class="floating-text" id="floatingText">
-    اضغط على النقط
+<div class="indicators" id="indicators">
+    <div data-index="0"></div>
+    <div data-index="1"></div>
+    <div data-index="2"></div>
 </div>
 
 <script>
-    const floatingText = document.getElementById("floatingText");
+    const carousel = document.getElementById("carousel");
+    const indicators = document.getElementById("indicators").children;
+    const progressBar = document.getElementById("progressBar");
+    const sections = document.querySelectorAll(".carousel section");
+    const totalSections = sections.length;
 
-    window.addEventListener("load", () => {
-        floatingText.style.display = "flex";
-        floatingText.style.opacity = "1";
-        setTimeout(() => {
-            floatingText.style.opacity = "0";
-        }, 5000);
+    let currentIndex = 0;
+
+    // Swipe detection for mobile
+    carousel.addEventListener("touchstart", (e) => {
+        startX = e.touches[0].clientX;
     });
 
-    function scrollToSection(id) {
-        const element = document.getElementById(id);
-        element.scrollIntoView({ behavior: 'smooth' });
-    }
+    carousel.addEventListener("touchend", (e) => {
+        const endX = e.changedTouches[0].clientX;
+        const deltaX = endX - startX;
 
-    const sections = document.querySelectorAll("section");
-    const progressBar = document.getElementById("progressBar");
-    const scrollToTop = document.getElementById("scrollToTop");
+        if (deltaX > 50 && currentIndex > 0) {
+            currentIndex--;
+        } else if (deltaX < -50 && currentIndex < totalSections - 1) {
+            currentIndex++;
+        }
+        updateCarousel();
+    });
 
-    window.addEventListener("scroll", () => {
-        let scrollPosition = window.scrollY;
-        let windowHeight = document.documentElement.scrollHeight - window.innerHeight;
-        let progressWidth = (scrollPosition / windowHeight) * 100;
-        progressBar.style.width = progressWidth + "%";
-
-        sections.forEach((section) => {
-            const rect = section.getBoundingClientRect();
-            if (rect.top >= -50 && rect.bottom <= window.innerHeight + 50) {
-                section.classList.add("visible");
-            } else {
-                section.classList.remove("visible");
+    // Update carousel position, indicators, and progress bar
+    function updateCarousel() {
+        sections.forEach((section, index) => {
+            section.classList.remove("active");
+            if (index === currentIndex) {
+                section.classList.add("active");
             }
         });
+        updateIndicators();
+        updateProgressBar();
+    }
 
-        if (scrollPosition > 300) {
-            scrollToTop.style.display = "block";
-        } else {
-            scrollToTop.style.display = "none";
+    function updateIndicators() {
+        Array.from(indicators).forEach((indicator, index) => {
+            indicator.classList.toggle("active", index === currentIndex);
+        });
+    }
+
+    function updateProgressBar() {
+        if (currentIndex === 0) {
+            progressBar.style.width = "0%";
+        } else if (currentIndex === 1) {
+            progressBar.style.width = "50%";
+        } else if (currentIndex === 2) {
+            progressBar.style.width = "100%";
         }
+    }
+
+    // Initialize indicators
+    Array.from(indicators).forEach((indicator, index) => {
+        indicator.addEventListener("click", () => {
+            currentIndex = index;
+            updateCarousel();
+        });
     });
 
-    scrollToTop.addEventListener("click", () => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-
+    // Set initial state
+    updateCarousel();
 </script>
 
 </body>
