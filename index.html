@@ -1,3 +1,227 @@
+
+
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cafe Saudi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #FF9F00;
+            padding: 15px;
+            text-align: center;
+            font-size: 24px;
+            z-index: 1000;
+        }
+
+        nav {
+            position: fixed;
+            top: 60px;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 10px 0;
+            z-index: 1000;
+        }
+
+        nav a {
+            color: #FF9F00;
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 1px solid #FF9F00;
+            border-radius: 5px;
+            font-size: 18px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #FF9F00;
+            color: black;
+        }
+
+        section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 1s ease-in-out, transform 0.5s ease-in-out;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        section img {
+            max-width: 90%;
+            max-height: 80%;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 5px;
+            background-color: #FF9F00;
+            z-index: 1001;
+            transition: width 0.1s;
+        }
+
+        .scroll-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #FF9F00;
+            color: black;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+        }
+
+        .scroll-to-top:hover {
+            background-color: #FF7F00;
+        }
+
+        html {
+            scroll-snap-type: y none;
+            scroll-behavior: smooth;
+            overflow-y: auto;
+        }
+
+        .scroll-indicator {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .scroll-indicator div {
+            width: 10px;
+            height: 10px;
+            background-color: rgba(255, 159, 0, 0.8);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+
+<header>
+    Cafe Saudi
+</header>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<section id="coffee-tea">
+    <img src="https://i.postimg.cc/TYb1hdpn/1.png" alt="قائمة القهوة والشاي">
+</section>
+
+<section id="smoothie-juices">
+    <img src="https://i.postimg.cc/76gDw6BL/2.png" alt="قائمة السموزي والعصائر">
+</section>
+
+<section id="milkshakes">
+    <img src="https://i.postimg.cc/BbrvNyw8/3.png" alt="قائمة الميلك شيك">
+</section>
+
+<div class="scroll-indicator">
+    <div onclick="scrollToSection('coffee-tea')"></div>
+    <div onclick="scrollToSection('smoothie-juices')"></div>
+    <div onclick="scrollToSection('milkshakes')"></div>
+</div>
+
+<button class="scroll-to-top" id="scrollToTop">&#8679;</button>
+
+<script>
+    const sections = document.querySelectorAll("section");
+    const progressBar = document.getElementById("progressBar");
+    const scrollToTop = document.getElementById("scrollToTop");
+
+    window.addEventListener("scroll", () => {
+        let scrollPosition = window.scrollY;
+        let windowHeight = document.documentElement.scrollHeight - window.innerHeight;
+        let progressWidth = (scrollPosition / windowHeight) * 100;
+        progressBar.style.width = progressWidth + "%";
+
+        sections.forEach((section) => {
+            const rect = section.getBoundingClientRect();
+            if (rect.top >= -50 && rect.bottom <= window.innerHeight + 50) {
+                section.classList.add("visible");
+            } else {
+                section.classList.remove("visible");
+            }
+        });
+
+        if (scrollPosition > 300) {
+            scrollToTop.style.display = "block";
+        } else {
+            scrollToTop.style.display = "none";
+        }
+    });
+
+    scrollToTop.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    function scrollToSection(id) {
+        const element = document.getElementById(id);
+        element.scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -201,7 +425,7 @@
         floatingText.style.opacity = "1";
         setTimeout(() => {
             floatingText.style.opacity = "0";
-        }, 3000);
+        }, 5000);
     });
 
     function scrollToSection(id) {
