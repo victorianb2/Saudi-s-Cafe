@@ -137,7 +137,9 @@
             padding: 10px 20px;
             border-radius: 5px;
             font-size: 18px;
-            display: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             opacity: 0;
             animation: fadeInOut 3s ease forwards;
         }
@@ -187,13 +189,16 @@
 
 <button class="scroll-to-top" id="scrollToTop">&#8679;</button>
 
-<div class="floating-text" id="floatingText">اضغط على النقط بالأسفل</div>
+<div class="floating-text" id="floatingText">
+    اضغط على النقط بالأسفل
+</div>
 
 <script>
     const floatingText = document.getElementById("floatingText");
 
     window.addEventListener("load", () => {
-        floatingText.style.display = "block";
+        floatingText.style.display = "flex";
+        floatingText.style.opacity = "1";
         setTimeout(() => {
             floatingText.style.opacity = "0";
         }, 3000);
