@@ -91,41 +91,6 @@
             transition: width 0.5s ease;
         }
 
-        .contact-button {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: rgba(255, 159, 0, 0.7);
-            color: white;
-            padding: 10px 15px;
-            border-radius: 25px;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(255, 159, 0, 0.5);
-            transition: transform 0.3s ease;
-        }
-
-        .contact-button:hover {
-            transform: scale(1.1);
-        }
-
-        .phone-button {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background-color: rgba(255, 159, 0, 0.7);
-            color: white;
-            padding: 10px 15px;
-            border-radius: 25px;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(255, 159, 0, 0.5);
-            transition: transform 0.3s ease;
-            display: none;
-        }
-
-        .phone-button:hover {
-            transform: scale(1.1);
-        }
-
         .contact-info {
             position: fixed;
             bottom: 0;
@@ -173,9 +138,6 @@
     <div data-index="2"></div>
 </div>
 
-<div class="contact-button" id="contactButton">تواصل معنا</div>
-<div class="phone-button" id="phoneButton">تواصل معنا: +201153263863</div>
-
 <div class="contact-info" id="contactInfo">
     <p>تواصل معنا: +201153263863</p>
 </div>
@@ -186,8 +148,6 @@
     const progressBar = document.getElementById("progressBar");
     const sections = document.querySelectorAll(".carousel section");
     const totalSections = sections.length;
-    const contactButton = document.getElementById("contactButton");
-    const phoneButton = document.getElementById("phoneButton");
     const contactInfo = document.getElementById("contactInfo");
 
     let currentIndex = 0;
@@ -243,22 +203,6 @@
             currentIndex = index;
             updateCarousel();
         });
-    });
-
-    // Contact Button Click
-    contactButton.addEventListener("click", () => {
-        if (contactButton.textContent === "تواصل معنا") {
-            phoneButton.style.display = "block";
-            contactButton.textContent = "اغلاق";
-        } else {
-            phoneButton.style.display = "none";
-            contactButton.textContent = "تواصل معنا";
-        }
-    });
-
-    // Phone Button Click
-    phoneButton.addEventListener("click", () => {
-        window.location.href = `tel:+201153263863`;
     });
 
     // Set initial state
