@@ -72,7 +72,6 @@
             position: fixed;
             bottom: 20px;
             right: 20px;
-            transform: translateY(0);
             background-color: #FF9F00;
             color: white;
             border: none;
@@ -82,11 +81,7 @@
             font-weight: bold;
             cursor: pointer;
             transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-            display: none;
-        }
-
-        .contact-button.show {
-            display: block;
+            z-index: 1002;
         }
 
         .dots-container {
@@ -130,7 +125,7 @@
 <div class="carousel" id="carousel">
     <section class="active">
         <img src="https://i.postimg.cc/KzwcvQK5/1.png" alt="قائمة القهوة والشاي">
-        <button class="contact-button show" id="contactButton" onclick="callNow()">تواصل معنا</button>
+        <button class="contact-button" id="contactButton" onclick="callNow()">تواصل معنا</button>
     </section>
     <section>
         <img src="https://i.postimg.cc/qqDqyY0C/2.png" alt="قائمة السموزي والعصائر">
