@@ -71,7 +71,7 @@
         .contact-button {
             position: fixed;
             bottom: 20px;
-            left: 20px;
+            right: 20px;
             transform: translateY(0);
             background-color: #FF9F00;
             color: white;
@@ -88,6 +88,29 @@
             transform: translateY(-5px);
             opacity: 0.9;
         }
+
+        .dots-container {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .dots-container div {
+            width: 12px;
+            height: 12px;
+            background-color: rgba(255, 159, 0, 0.5);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .dots-container div.active {
+            background-color: #FF9F00;
+        }
     </style>
 </head>
 <body>
@@ -100,7 +123,7 @@
 
 <div class="carousel" id="carousel">
     <section class="active">
-        <img src="https://i.postimg.cc/httd2F35/1.png" alt="قائمة القهوة والشاي">
+        <img src="https://i.postimg.cc/KzwcvQK5/1.png" alt="قائمة القهوة والشاي">
     </section>
     <section>
         <img src="https://i.postimg.cc/qqDqyY0C/2.png" alt="قائمة السموزي والعصائر">
@@ -112,11 +135,18 @@
 
 <button class="contact-button" id="contactButton" onclick="callNow()">تواصل معنا</button>
 
+<div class="dots-container" id="dotsContainer">
+    <div data-index="0"></div>
+    <div data-index="1"></div>
+    <div data-index="2"></div>
+</div>
+
 <script>
     const carousel = document.getElementById("carousel");
     const sections = document.querySelectorAll(".carousel section");
     const progressBar = document.getElementById("progressBar");
     const contactButton = document.getElementById("contactButton");
+    const dotsContainer = document.getElementById("dotsContainer").children;
 
     let currentIndex = 0;
 
@@ -137,7 +167,7 @@
         updateCarousel();
     });
 
-    // Update carousel position and progress bar
+    // Update carousel position, progress bar, and dots
     function updateCarousel() {
         sections.forEach((section, index) => {
             section.classList.remove("active");
@@ -146,10 +176,17 @@
             }
         });
         updateProgressBar();
+        updateDots();
     }
 
     function updateProgressBar() {
         progressBar.style.width = `${(currentIndex / (sections.length - 1)) * 100}%`;
+    }
+
+    function updateDots() {
+        Array.from(dotsContainer).forEach((dot, index) => {
+            dot.classList.toggle("active", index === currentIndex);
+        });
     }
 
     // Handle contact button click
@@ -166,8 +203,17 @@
         contactButton.classList.remove("animate");
     });
 
-    // Set initial state
+    // Initialize state
     updateCarousel();
+
+    // Click event on dots
+    Array.from(dotsContainer).forEach((dot, index) => {
+        dot.addEventListener("click", () => {
+            currentIndex = index;
+            updateCarousel();
+        });
+    });
+
 </script>
 
 </body>
