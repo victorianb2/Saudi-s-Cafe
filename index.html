@@ -111,6 +111,12 @@
         .dots-container div.active {
             background-color: #FF9F00;
         }
+
+        /* الإضافات للتوسيع والعودة إلى الحالة الطبيعية */
+        .contact-button:hover {
+            transform: scale(1.1);
+        }
+
     </style>
 </head>
 <body>
@@ -197,15 +203,6 @@
     function callNow() {
         window.location.href = "tel:+201032780436";
     }
-
-    // Animate button on hover
-    contactButton.addEventListener("mouseover", () => {
-        contactButton.classList.add("animate");
-    });
-
-    contactButton.addEventListener("mouseout", () => {
-        contactButton.classList.remove("animate");
-    });
 
     // Initialize state
     updateCarousel();
