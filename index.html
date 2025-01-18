@@ -82,11 +82,11 @@
             font-weight: bold;
             cursor: pointer;
             transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            display: none;
         }
 
-        .contact-button.animate {
-            transform: translateY(-5px);
-            opacity: 0.9;
+        .contact-button.show {
+            display: block;
         }
 
         .dots-container {
@@ -124,6 +124,7 @@
 <div class="carousel" id="carousel">
     <section class="active">
         <img src="https://i.postimg.cc/KzwcvQK5/1.png" alt="قائمة القهوة والشاي">
+        <button class="contact-button show" id="contactButton" onclick="callNow()">تواصل معنا</button>
     </section>
     <section>
         <img src="https://i.postimg.cc/qqDqyY0C/2.png" alt="قائمة السموزي والعصائر">
@@ -132,8 +133,6 @@
         <img src="https://i.postimg.cc/RCgNk3fV/3.png" alt="قائمة الميلك شيك">
     </section>
 </div>
-
-<button class="contact-button" id="contactButton" onclick="callNow()">تواصل معنا</button>
 
 <div class="dots-container" id="dotsContainer">
     <div data-index="0"></div>
@@ -173,6 +172,11 @@
             section.classList.remove("active");
             if (index === currentIndex) {
                 section.classList.add("active");
+                if (index === 0) {
+                    contactButton.classList.add("show");
+                } else {
+                    contactButton.classList.remove("show");
+                }
             }
         });
         updateProgressBar();
