@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Café Saudi</title>
+    <title>Café ELMAMLAKA</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -70,9 +70,8 @@
 
         .contact-button {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            transform: translateY(0);
+            bottom: 15px; /* جعل المسافة صغيرة */
+            right: 30px;
             background-color: #FF9F00;
             color: white;
             border: none;
@@ -82,11 +81,7 @@
             font-weight: bold;
             cursor: pointer;
             transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-            display: none;
-        }
-
-        .contact-button.show {
-            display: block;
+            z-index: 1002;
         }
 
         .dots-container {
@@ -122,7 +117,7 @@
 <body>
 
 <header>
-    Café Saudi
+    Café
 </header>
 
 <div class="progress-bar" id="progressBar"></div>
@@ -130,13 +125,22 @@
 <div class="carousel" id="carousel">
     <section class="active">
         <img src="https://i.postimg.cc/KzwcvQK5/1.png" alt="قائمة القهوة والشاي">
-        <button class="contact-button show" id="contactButton" onclick="callNow()">تواصل معنا</button>
+        <button class="contact-button" id="contactButton" onclick="callNow()">تواصل معنا</button>
     </section>
     <section>
-        <img src="https://i.postimg.cc/qqDqyY0C/2.png" alt="قائمة السموزي والعصائر">
+        <img src="https://i.postimg.cc/TPGfT6gd/1s.png" alt="قائمة القهوة والشاي">
     </section>
     <section>
-        <img src="https://i.postimg.cc/RCgNk3fV/3.png" alt="قائمة الميلك شيك">
+        <img src="https://i.postimg.cc/Bvq9dCft/2.png" alt="قائمة الميلك شيك">
+    </section>
+    <section>
+        <img src="https://i.postimg.cc/cHbptyg8/s3.png" alt="قائمة السندويتشات">
+    </section>
+    <section>
+        <img src="https://i.postimg.cc/sxGtp67H/s4.png" alt="قائمة الحلويات">
+    </section>
+    <section>
+        <img src="https://i.postimg.cc/Z0kXj8Lb/s5.png" alt="قائمة العصائر">
     </section>
 </div>
 
@@ -144,6 +148,9 @@
     <div data-index="0"></div>
     <div data-index="1"></div>
     <div data-index="2"></div>
+    <div data-index="3"></div>
+    <div data-index="4"></div>
+    <div data-index="5"></div>
 </div>
 
 <script>
