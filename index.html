@@ -91,24 +91,25 @@
             transition: width 0.5s ease;
         }
 
-        .contact-info {
+        .contact-button {
             position: fixed;
-            bottom: 0;
+            bottom: 20px;
             left: 50%;
-            transform: translateX(-50%);
-            background-color: rgba(0, 0, 0, 0.8);
+            transform: translateX(-50%) scale(1);
+            background-color: #FF9F00;
             color: white;
-            padding: 10px;
-            border-radius: 5px;
-            text-align: center;
-            display: none;
-            opacity: 0;
-            transition: all 0.5s ease;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
         }
 
-        .contact-info.visible {
-            display: block;
-            opacity: 1;
+        .contact-button.animate {
+            transform: translateX(-50%) scale(1.1);
+            opacity: 0.9;
         }
     </style>
 </head>
@@ -122,7 +123,7 @@
 
 <div class="carousel" id="carousel">
     <section class="active">
-        <img src="https://i.postimg.cc/httd2F35/1.png" alt="قائمة القهوة والشاي">
+        <img src="https://i.postimg.cc/KzwcvQK5/1.png" alt="قائمة القهوة والشاي">
     </section>
     <section>
         <img src="https://i.postimg.cc/qqDqyY0C/2.png" alt="قائمة السموزي والعصائر">
@@ -138,9 +139,7 @@
     <div data-index="2"></div>
 </div>
 
-<div class="contact-info" id="contactInfo">
-    <p>تواصل معنا: +201153263863</p>
-</div>
+<button class="contact-button" id="contactButton" onclick="callNow()">تواصل معنا</button>
 
 <script>
     const carousel = document.getElementById("carousel");
@@ -148,7 +147,7 @@
     const progressBar = document.getElementById("progressBar");
     const sections = document.querySelectorAll(".carousel section");
     const totalSections = sections.length;
-    const contactInfo = document.getElementById("contactInfo");
+    const contactButton = document.getElementById("contactButton");
 
     let currentIndex = 0;
 
@@ -188,13 +187,7 @@
     }
 
     function updateProgressBar() {
-        if (currentIndex === 0) {
-            progressBar.style.width = "0%";
-        } else if (currentIndex === 1) {
-            progressBar.style.width = "50%";
-        } else if (currentIndex === 2) {
-            progressBar.style.width = "100%";
-        }
+        progressBar.style.width = `${(currentIndex / (totalSections - 1)) * 100}%`;
     }
 
     // Initialize indicators
@@ -203,6 +196,20 @@
             currentIndex = index;
             updateCarousel();
         });
+    });
+
+    // Handle contact button click
+    function callNow() {
+        window.location.href = "tel:+201032780436";
+    }
+
+    // Animate button on hover
+    contactButton.addEventListener("mouseover", () => {
+        contactButton.classList.add("animate");
+    });
+
+    contactButton.addEventListener("mouseout", () => {
+        contactButton.classList.remove("animate");
     });
 
     // Set initial state
